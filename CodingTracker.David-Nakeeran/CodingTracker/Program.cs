@@ -1,8 +1,10 @@
-﻿
+﻿using CodingTracker.Database;
+namespace CodingTracker;
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello World");
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.CreateDatabaseTable();
     }
 }
