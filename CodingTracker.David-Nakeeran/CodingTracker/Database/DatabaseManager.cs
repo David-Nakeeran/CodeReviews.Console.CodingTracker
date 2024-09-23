@@ -19,7 +19,8 @@ internal class DatabaseManager
             Id INTEGER PRIMARY KEY AUTOINCREMENT,
             StartTime TEXT,
             EndTime TEXT,
-            Duration TEXT
+            Duration TEXT,
+            Date TEXT
         )";
         tableCmd.ExecuteNonQuery();
     }
@@ -39,7 +40,15 @@ internal class DatabaseManager
             session.StartTime = DateTime.ParseExact(session.StartTime.ToString(), "HH:mm", null);
             session.EndTime = DateTime.ParseExact(session.EndTime.ToString(), "HH:mm", null);
             session.Duration = session.EndTime - session.StartTime;
+            session.Date = DateTime.ParseExact(session.Date.ToString(), "dd-MM-yy", new CultureInfo("en-GB"));
         }
         return sessionsFromDb;
+    }
+    internal void Insert()
+    {
+
+        // DateTime.Today then .ToString() - get the current date
+        // connect to database
+        // insert variables into database
     }
 }
