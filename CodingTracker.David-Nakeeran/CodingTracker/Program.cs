@@ -8,10 +8,12 @@ class Program
     static void Main(string[] args)
     {
         Validation validation = new Validation();
-        CodingTrackerController codingTrackerController = new CodingTrackerController(validation);
-        DatabaseManager databaseManager = new DatabaseManager();
-        CodingSessionTracker codingSessionTracker = new CodingSessionTracker();
+        InputHandler inputHandler = new InputHandler();
         UserInput userInput = new UserInput();
+        CodingTrackerController codingTrackerController = new CodingTrackerController(validation, inputHandler, userInput);
+        DatabaseManager databaseManager = new DatabaseManager(codingTrackerController);
+        CodingSessionTracker codingSessionTracker = new CodingSessionTracker();
+
         databaseManager.CreateDatabaseTable();
 
         userInput.ShowMenu();
