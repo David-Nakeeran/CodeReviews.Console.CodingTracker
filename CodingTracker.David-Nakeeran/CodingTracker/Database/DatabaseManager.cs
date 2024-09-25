@@ -1,11 +1,18 @@
 using System.Configuration;
+using CodingTracker.Controller;
 using CodingTracker.Models;
 using Dapper;
 using Microsoft.Data.Sqlite;
+using Spectre.Console;
 
 namespace CodingTracker.Database;
 internal class DatabaseManager
 {
+    private readonly CodingTrackerController _controller;
+    internal DatabaseManager(CodingTrackerController controller)
+    {
+        _controller = controller;
+    }
     internal void CreateDatabaseTable()
     {
         string connectionString = ConfigurationManager.AppSettings["connectionString"];
@@ -46,7 +53,12 @@ internal class DatabaseManager
     }
     internal void Insert()
     {
-
+        AnsiConsole.MarkupLine("Please enter the start time");
+        string startTime = _controller.GetTimeInput();
+        AnsiConsole.MarkupLine("Please enter the end time");
+        string endTime = _controller.GetTimeInput();
+        // string duration = endTime - startTime;
+        string dateOfEntry = DateTime.Today.ToString();
         // DateTime.Today then .ToString() - get the current date
         // connect to database
         // insert variables into database
