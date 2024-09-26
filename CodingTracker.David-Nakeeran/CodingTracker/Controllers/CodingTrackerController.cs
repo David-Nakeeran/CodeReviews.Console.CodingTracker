@@ -19,7 +19,10 @@ class CodingTrackerController
     {
         var timeInput = AnsiConsole.Ask<string>("Please enter the time in the format of hh:mm or enter 0 to return to main menu");
         timeInput = _validation.CheckInputNullOrWhitespace("Please enter the time in the format of hh:mm or enter 0 to return to main menu", timeInput);
-        // _inputhandler.IsInputZero(string input)
+        if (_inputHandler.IsInputZero(timeInput))
+        {
+            _userInput.ShowMenu();
+        }
         while (!_validation.IsTimeValid(timeInput))
         {
             timeInput = AnsiConsole.Ask<string>("Please enter the time in the format of hh:mm");
