@@ -1,3 +1,4 @@
+using CodingTracker.Coordinators;
 using CodingTracker.Utilities;
 using CodingTracker.Views;
 using Spectre.Console;
@@ -8,25 +9,29 @@ class CodingTrackerController
 {
     private readonly Validation _validation;
     private readonly InputHandler _inputHandler;
-    private readonly UserInput _userInput;
-    internal CodingTrackerController(Validation validation, InputHandler inputHandler, UserInput userInput)
+    private readonly TimeCalculator _timeCalculator;
+
+
+    public CodingTrackerController(Validation validation, InputHandler inputHandler, TimeCalculator timeCalculator)
     {
         _validation = validation;
         _inputHandler = inputHandler;
-        _userInput = userInput;
+        _timeCalculator = timeCalculator;
     }
-    internal string GetTimeInput()
+    internal (string? startTime, string? endTime) GetTimeInputs()
     {
-        var timeInput = AnsiConsole.Ask<string>("Please enter the time in the format of hh:mm or enter 0 to return to main menu");
-        timeInput = _validation.CheckInputNullOrWhitespace("Please enter the time in the format of hh:mm or enter 0 to return to main menu", timeInput);
-        if (_inputHandler.IsInputZero(timeInput))
+        string startTime = _validation.GetValidatedTimeInput("Please enter start time in the format of hh:mm or enter 0 to return to main menu", _inputHandler);
+        if (startTime == "0") return (null, null);
+
+        string endTime = _validation.GetValidatedTimeInput("Please enter end time in the format of hh:mm or enter 0 to return to main menu", _inputHandler);
+        if (endTime == "0") return (null, null);
+
+        while (!_timeCalculator.IsEndTimeGreater(startTime, endTime))
         {
-            _userInput.ShowMenu();
+            endTime = _validation.GetValidatedTimeInput("Please enter end time later than start time or enter 0 to return to main menu", _inputHandler);
+            if (endTime == "0") return (null, null);
         }
-        while (!_validation.IsTimeValid(timeInput))
-        {
-            timeInput = AnsiConsole.Ask<string>("Please enter the time in the format of hh:mm");
-        }
-        return timeInput;
+
+        return (startTime, endTime);
     }
 }

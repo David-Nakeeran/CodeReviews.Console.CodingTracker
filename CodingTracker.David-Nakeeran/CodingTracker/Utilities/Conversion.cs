@@ -6,7 +6,7 @@ class Conversion
     {
         return DateTime.ParseExact(dateTime, "HH:mm", null);
     }
-    // method TimeSpanToString
+
     internal string TimeSpanToString(TimeSpan span)
     {
         return span.ToString(@"hh\:mm");

@@ -21,6 +21,20 @@ class Validation
         }
         return true;
     }
+    internal string GetValidatedTimeInput(string message, InputHandler inputHandler)
+    {
+        var timeInput = AnsiConsole.Ask<string>(message);
+        timeInput = CheckInputNullOrWhitespace("Please enter the time in the format of hh:mm or enter 0 to return to main menu", timeInput);
+        if (inputHandler.IsInputZero(timeInput))
+        {
+            return "0";
+        }
+        while (!IsTimeValid(timeInput))
+        {
+            timeInput = AnsiConsole.Ask<string>("Please enter the time in the format of hh:mm");
+        }
+        return timeInput;
+    }
     // IsTimeValid method return bool
 
 }
