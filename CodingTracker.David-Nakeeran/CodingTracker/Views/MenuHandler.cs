@@ -1,7 +1,10 @@
 using Spectre.Console;
+
 namespace CodingTracker.Views;
+
 class MenuHandler
 {
+
     internal enum MenuOption
     {
         ViewAllRecords = 1,
@@ -10,6 +13,7 @@ class MenuHandler
         UpdateRecord = 4,
         CloseApp = 5
     }
+
     internal MenuOption ShowMenu()
     {
         Console.Clear();
@@ -28,5 +32,11 @@ class MenuHandler
                     MenuOption.CloseApp
                 ));
         return userSelection;
+    }
+
+    internal void WaitForUserInput()
+    {
+        AnsiConsole.MarkupLine("Press any key to continue.....");
+        Console.ReadKey(true);
     }
 }

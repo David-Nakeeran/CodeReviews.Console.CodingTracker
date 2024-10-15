@@ -1,13 +1,11 @@
 using CodingTracker.Database;
 using CodingTracker.Views;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CodingTracker.Coordinators;
 class AppCoordinator
 {
     private readonly MenuHandler _menuHandler;
     private readonly DatabaseManager _databaseManager;
-
 
     public AppCoordinator(MenuHandler menuHandler, DatabaseManager databaseManager)
     {
@@ -26,25 +24,22 @@ class AppCoordinator
             switch ((int)userSelection)
             {
                 case 1:
-                    Console.WriteLine("View all records");
+                    _databaseManager.ViewAllRecords();
+                    _menuHandler.WaitForUserInput();
                     break;
                 case 2:
                     _databaseManager.Insert();
-                    Console.WriteLine("Insert record");
                     break;
                 case 3:
-                    Console.WriteLine("Delete record");
+                    _databaseManager.Delete();
                     break;
                 case 4:
-                    Console.WriteLine("Update record");
+                    _databaseManager.Update();
                     break;
                 case 5:
-                    Console.WriteLine("Close app");
                     closeApp = true;
                     break;
             }
-
         }
-
     }
 }

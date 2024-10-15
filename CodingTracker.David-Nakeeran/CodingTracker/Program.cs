@@ -6,6 +6,7 @@ using CodingTracker.Controller;
 using CodingTracker.Coordinators;
 
 namespace CodingTracker;
+
 class Program
 {
     static void Main(string[] args)
@@ -21,6 +22,7 @@ class Program
         services.AddSingleton<DatabaseManager>();
         services.AddSingleton<MenuHandler>();
         services.AddSingleton<CodingTrackerController>();
+        services.AddSingleton<CodingSessionTracker>();
         services.AddSingleton<AppCoordinator>();
 
         // Build service provider
@@ -30,16 +32,6 @@ class Program
         var appCoordinator = serviceProvider.GetRequiredService<AppCoordinator>();
         appCoordinator.Start();
 
-        // 
-
-
-        // var sessions = databaseManager.LoadCodingSessionDataFromDb();
-        // foreach (var session in sessions)
-        // {
-        //     codingSessionTracker.AddSession(session);
-        // }
     }
-    // userInput.ShowMenu();
-
 }
 
