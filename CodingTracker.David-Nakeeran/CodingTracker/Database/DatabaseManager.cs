@@ -1,4 +1,3 @@
-using System.Configuration;
 using CodingTracker.Controller;
 using CodingTracker.Models;
 using CodingTracker.Utilities;
